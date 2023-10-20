@@ -64,8 +64,15 @@ fun SelectImage() {
             }
     })
 
+    val cameraLauncher = rememberLauncherForActivityResult(contract = ActivityResultContracts.TakePicture(), onResult = {
+        success -> if(success && imageUri.value != null)
+            launchHandlingActivity(ctx, imageUri.value!!)
+
+    } )
+
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceEvenly) {
         Text(text = "Import an Image", fontSize = 25.sp, fontWeight = FontWeight.Bold)
+
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
             Button(modifier = Modifier
@@ -80,7 +87,11 @@ fun SelectImage() {
                 .padding(8.dp)
                 .width(120.dp)
                 .height(120.dp)
-                .clip(CircleShape),onClick = { /*TODO*/ }) {
+                .clip(CircleShape),onClick = {
+                val uri = ComposeFileProvider.getImageUri(ctx)
+                imageUri.value= uri
+                cameraLauncher.launch(uri)
+                }) {
                 Text(text = "Camera")
             }
         }

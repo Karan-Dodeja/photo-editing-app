@@ -24,6 +24,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".EditActivity" />
+        <provider
+            android:name=".ComposeFileProvider"
+            android:authorities="com.example.photo_edit.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
