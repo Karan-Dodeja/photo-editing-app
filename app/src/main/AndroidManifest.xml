@@ -23,7 +23,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditActivity" />
+        <activity android:name=".EditActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.action.DEFAULT" />
+                <data android:mimeType="image/*"></data>
+            </intent-filter>
+        </activity>
         <provider
             android:name=".ComposeFileProvider"
             android:authorities="com.example.photo_edit.fileprovider"
